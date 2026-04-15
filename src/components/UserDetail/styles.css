@@ -1,0 +1,23 @@
+.user-detail-container {
+  padding: 20px;
+}
+
+.user-name {
+  margin-bottom: 10px;
+}
+
+.user-occupation {
+  color: gray;
+}
+
+.user-location {
+  margin: 10px 0;
+}
+
+.user-description {
+  margin-bottom: 20px;
+}
+
+.view-photo-btn {
+  margin-top: 20px;
+}

@@ -1,0 +1,19 @@
+.topbar-appBar {
+  background-color: #1976d2;
+}
+
+/* Toolbar layout */
+.topbar-toolbar {
+  display: flex;
+  justify-content: space-between;
+}
+
+/* Bên trái (tên bạn) */
+.topbar-left {
+  font-weight: bold;
+}
+
+/* Bên phải (context) */
+.topbar-right {
+  font-style: italic;
+}

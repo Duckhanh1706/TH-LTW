@@ -1,0 +1,16 @@
+.user-list-container {
+  padding: 10px;
+}
+
+.user-list-title {
+  margin-bottom: 10px;
+  font-weight: bold;
+}
+
+.active-user {
+  background-color: #e3f2fd;
+}
+
+.active-user:hover {
+  background-color: #bbdefb;
+}
