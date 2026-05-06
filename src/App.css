@@ -1,3 +1,29 @@
 .main-topbar-buffer {
-  margin-top: 70px;
+  height: 64px; /* chiều cao TopBar MUI */
+}
+
+/* ===== LAYOUT CHÍNH ===== */
+.app-body {
+  display: flex;
+}
+
+/* ===== SIDEBAR (FIXED) ===== */
+.sidebar {
+  width: 250px;
+  position: fixed;
+  top: 64px;
+  left: 0;
+  bottom: 0;
+  overflow-y: auto;
+  background-color: #fff;
+  border-right: 1px solid #ddd;
+}
+
+/* ===== CONTENT ===== */
+.content {
+  margin-left: 250px;
+  padding: 20px;
+  width: 100%;
+  min-height: calc(100vh - 64px);
+  overflow-y: auto;
 }

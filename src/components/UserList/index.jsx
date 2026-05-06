@@ -1,49 +1,37 @@
-import React from "react";
-import {
-  Divider,
-  List,
-  ListItem,
-  ListItemText,
-  Typography,
-} from "@mui/material";
+import React, { useEffect, useState } from "react";
+import { List, ListItem, ListItemText, Typography } from "@mui/material";
 import { Link, useLocation } from "react-router-dom";
-import models from "../../modelData/models";
+import fetchModel from "../../lib/fetchModelData";
 import "./styles.css";
 
-function UserList() {
-  const users = models.userListModel();
+export default function UserList() {
+  const [users, setUsers] = useState([]);
   const location = useLocation();
+
+  useEffect(() => {
+    fetchModel("/user/list").then(setUsers);
+  }, []);
 
   return (
     <div className="user-list-container">
-      <Typography variant="h6" className="user-list-title">
-        Users
-      </Typography>
+      <Typography className="user-list-title">Users</Typography>
 
-      <List component="nav">
-        {users.map((user) => {
-          const isActive = location.pathname === `/users/${user._id}`;
+      <List>
+        {users.map((u) => {
+          const isActive = location.pathname === `/users/${u._id}`;
 
           return (
-            <div key={user._id}>
-              <ListItem
-                button
-                component={Link}
-                to={`/users/${user._id}`}
-                className={isActive ? "active-user" : ""}
-              >
-                <ListItemText
-                  primary={`${user.first_name} ${user.last_name}`}
-                  secondary={user.location}
-                />
-              </ListItem>
-              <Divider />
-            </div>
+            <ListItem
+              key={u._id}
+              component={Link}
+              to={`/users/${u._id}`}
+              className={isActive ? "active-user" : ""}
+            >
+              <ListItemText primary={`${u.first_name} ${u.last_name}`} />
+            </ListItem>
           );
         })}
       </List>
     </div>
   );
 }
-
-export default UserList;

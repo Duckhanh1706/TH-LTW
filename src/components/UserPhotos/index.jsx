@@ -1,71 +1,52 @@
-import React from "react";
-import { Typography, Paper, Divider } from "@mui/material";
+import React, { useEffect, useState } from "react";
 import { useParams, Link } from "react-router-dom";
-import models from "../../modelData/models";
+import fetchModel from "../../lib/fetchModelData";
 import "./styles.css";
 
 export default function UserPhotos() {
   const { userId } = useParams();
-  const photos = models.photoOfUserModel(userId);
+  const [photos, setPhotos] = useState([]);
 
-  // Không có ảnh
-  if (!photos || photos.length === 0) {
-    return <Typography variant="h6">No photos found for this user.</Typography>;
-  }
+  useEffect(() => {
+    fetchModel(`/photosOfUser/${userId}`).then(setPhotos);
+  }, [userId]);
 
   return (
     <div className="photos-container">
-      {photos.map((photo) => (
-        <Paper key={photo._id} className="photo-card">
-          {/* Ngày đăng */}
-          <Typography variant="caption" className="photo-date">
-            Posted on: {new Date(photo.date_time).toLocaleString("vi-VN")}
-          </Typography>
-
-          {/* Ảnh */}
+      {photos.map((p) => (
+        <div key={p._id} className="photo-card">
           <img
-            src={`/images/${photo.file_name}`}
-            alt={photo.file_name}
+            src={`/images/${p.file_name}`}
             className="photo-img"
+            alt="photo"
           />
 
-          {/* Tiêu đề comment */}
-          <Typography variant="h6" className="comment-title">
-            Comments
-          </Typography>
+          <div className="photo-date">
+            {new Date(p.date_time).toLocaleString("vi-VN")}
+          </div>
 
-          <Divider className="divider" />
+          <div className="comment-title">Comments</div>
 
-          {/* Danh sách comment */}
-          {photo.comments && photo.comments.length > 0 ? (
-            photo.comments.map((comment) => (
-              <div key={comment._id} className="comment-box">
-                {/* User + time */}
-                <Typography variant="subtitle2">
-                  <Link
-                    to={`/users/${comment.user._id}`}
-                    className="comment-user"
-                  >
-                    {comment.user.first_name} {comment.user.last_name}
-                  </Link>
+          <div className="divider" />
 
-                  <span className="comment-date">
-                    {new Date(comment.date_time).toLocaleString("vi-VN")}
-                  </span>
-                </Typography>
+          {p.comments && p.comments.length > 0 ? (
+            p.comments.map((c) => (
+              <div key={c._id} className="comment-box">
+                <Link to={`/users/${c.user._id}`} className="comment-user">
+                  {c.user.first_name} {c.user.last_name}
+                </Link>
 
-                {/* Nội dung */}
-                <Typography variant="body2" className="comment-text">
-                  {comment.comment}
-                </Typography>
+                <span className="comment-date">
+                  {new Date(c.date_time).toLocaleString("vi-VN")}
+                </span>
+
+                <div className="comment-text">{c.comment}</div>
               </div>
             ))
           ) : (
-            <Typography variant="body2" className="no-comment">
-              No comments yet.
-            </Typography>
+            <div className="no-comment">No comments</div>
           )}
-        </Paper>
+        </div>
       ))}
     </div>
   );

@@ -1,40 +1,37 @@
-import { Typography, Paper, Button } from "@mui/material";
+import React, { useEffect, useState } from "react";
 import { useParams, Link } from "react-router-dom";
-import models from "../../modelData/models";
+import fetchModel from "../../lib/fetchModelData";
+import { Button } from "@mui/material";
 import "./styles.css";
 
 export default function UserDetail() {
   const { userId } = useParams();
-  const user = models.userModel(userId);
+  const [user, setUser] = useState(null);
 
-  if (!user) return <Typography>User not found</Typography>;
+  useEffect(() => {
+    fetchModel(`/user/${userId}`).then(setUser);
+  }, [userId]);
+
+  if (!user) return <div>Loading...</div>;
 
   return (
-    <Paper className="user-detail-container">
-      <Typography variant="h4" className="user-name">
+    <div className="user-detail-container">
+      <h2 className="user-name">
         {user.first_name} {user.last_name}
-      </Typography>
+      </h2>
 
-      <Typography variant="h6" className="user-occupation">
-        {user.occupation}
-      </Typography>
-
-      <Typography variant="body1" className="user-location">
-        {user.location}
-      </Typography>
-
-      <Typography variant="body2" className="user-description">
-        {user.description}
-      </Typography>
+      <p className="user-occupation">{user.occupation}</p>
+      <p className="user-location">{user.location}</p>
+      <p className="user-description">{user.description}</p>
 
       <Button
         variant="contained"
         component={Link}
         to={`/photos/${userId}`}
-        className="view-photo-btn"
+        sx={{ marginTop: 2 }}
       >
         View Photos
       </Button>
-    </Paper>
+    </div>
   );
 }
