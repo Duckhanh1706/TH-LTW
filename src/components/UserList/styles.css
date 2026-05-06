@@ -7,10 +7,57 @@
   font-weight: bold;
 }
 
+/* từng user row */
+.user-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+/* badge container */
+.badges {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+}
+
+/* base badge */
+.badge {
+  min-width: 24px;
+  height: 20px;
+  padding: 0 6px;
+  border-radius: 12px;
+  font-size: 12px;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+}
+
+/* photo badge */
+.badge.green {
+  background: #4caf50;
+}
+
+/* comment badge */
+.badge.red {
+  background: #f44336;
+  text-decoration: none;
+}
+
+/* hover effect */
+.badge.red:hover {
+  opacity: 0.8;
+  cursor: pointer;
+}
+
+/* active user */
 .active-user {
-  background-color: #e3f2fd;
+  background-color: #e3f2fd !important;
 }
 
 .active-user:hover {
-  background-color: #bbdefb;
+  background-color: #bbdefb !important;
 }

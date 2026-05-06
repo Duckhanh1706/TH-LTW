@@ -7,6 +7,7 @@ import TopBar from "./components/TopBar";
 import UserDetail from "./components/UserDetail";
 import UserList from "./components/UserList";
 import UserPhotos from "./components/UserPhotos";
+import UserComments from "./components/UseComment";
 
 const App = () => {
   return (
@@ -27,6 +28,7 @@ const App = () => {
             <Route path="/users/:userId" element={<UserDetail />} />
             <Route path="/photos/:userId" element={<UserPhotos />} />
             <Route path="/users" element={<UserList />} />
+            <Route path="/user-comments/:userId" element={<UserComments />} />
           </Routes>
         </div>
       </div>
